@@ -1,0 +1,31 @@
+.launch-page {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding-top: 34vh;
+  text-align: center;
+  color: #52687a;
+  background: #dbeaf3;
+}
+
+.launch-brand {
+  font-family: serif;
+  font-size: 54rpx;
+  letter-spacing: 14rpx;
+}
+
+.launch-note {
+  margin-top: 28rpx;
+  font-size: 24rpx;
+  letter-spacing: 5rpx;
+  opacity: 0.72;
+}
+
+.retry-button {
+  width: 260rpx;
+  margin-top: 38rpx;
+  border: 1rpx solid rgba(82, 104, 122, 0.5);
+  border-radius: 999rpx;
+  color: #52687a;
+  background: rgba(255, 255, 255, 0.36);
+  font-size: 28rpx;
+}

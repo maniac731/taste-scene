@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "foods.schema.json",
+  "title": "一口食物数据库",
+  "type": "object",
+  "required": ["meta", "foods"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["schema_version", "record_count", "source", "field_definitions", "cleaning_summary"]
+    },
+    "foods": {
+      "type": "array",
+      "minItems": 406,
+      "maxItems": 406,
+      "items": { "$ref": "#/$defs/food" }
+    }
+  },
+  "$defs": {
+    "food": {
+      "type": "object",
+      "required": [
+        "food_id", "food_code", "name", "type", "color_1", "color_2",
+        "color_group_1", "color_group_2", "intensity", "taste", "temperature",
+        "texture", "season", "scene_type", "visual_tags", "scene_affinity", "ingredient_tags",
+        "source_visual_tags", "source_scene_affinity", "asset"
+      ],
+      "properties": {
+        "food_id": { "type": "integer", "minimum": 1, "maximum": 406 },
+        "food_code": { "type": "string", "pattern": "^F[0-9]{3}$" },
+        "name": { "type": "string", "minLength": 2 },
+        "type": { "enum": ["drink", "dessert", "meal", "light_meal", "snack", "bakery", "soup", "sweet_soup"] },
+        "color_1": { "type": "string", "minLength": 1 },
+        "color_2": { "type": "string", "minLength": 1 },
+        "color_group_1": { "$ref": "#/$defs/color_group" },
+        "color_group_2": { "$ref": "#/$defs/color_group" },
+        "intensity": { "enum": ["轻盈", "平衡", "浓郁"] },
+        "taste": { "enum": ["清甜", "酸甜", "咸甜", "咸香", "鲜香", "苦甜", "辛香", "甘香", "椰香", "茶香", "醇厚"] },
+        "temperature": { "enum": ["冰爽", "微凉", "常温", "温热", "滚烫"] },
+        "texture": { "enum": ["清爽", "流动", "顺滑", "绵密", "松软", "酥脆", "软糯", "Q弹", "脆嫩", "脆爽", "滑嫩", "软嫩", "颗粒分明"] },
+        "season": { "enum": ["spring", "summer", "autumn", "winter", "all"] },
+        "scene_type": { "enum": ["fresh", "comfort", "relaxed", "daily", "celebration", "social"] },
+        "visual_tags": {
+          "type": "array", "minItems": 4, "maxItems": 6, "uniqueItems": true,
+          "items": { "type": "string", "minLength": 2 }
+        },
+        "scene_affinity": {
+          "type": "array", "minItems": 1, "maxItems": 6, "uniqueItems": true,
+          "items": {
+            "enum": [
+              "春日", "夏日", "秋日", "冬日", "雨天", "居家", "户外", "海边",
+              "旅行", "通勤", "野餐", "散步", "运动", "咖啡馆", "窗边", "街头",
+              "早餐", "早午餐", "午餐", "下午茶", "晚餐", "夜宵", "独处", "朋友聚会",
+              "家庭聚会", "约会", "节日", "生日", "派对", "读书", "追剧", "日常", "下酒"
+            ]
+          }
+        },
+        "ingredient_tags": {
+          "type": "array", "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "source_visual_tags": {
+          "type": "array", "minItems": 4, "maxItems": 4,
+          "items": { "type": "string" }
+        },
+        "source_scene_affinity": {
+          "type": "array", "minItems": 3, "maxItems": 3,
+          "items": { "type": "string" }
+        },
+        "asset": { "$ref": "#/$defs/asset" }
+      },
+      "additionalProperties": false
+    },
+    "color_group": {
+      "enum": ["红", "橙", "黄", "绿", "蓝", "紫", "粉", "棕", "黑", "白", "多色"]
+    },
+    "asset": {
+      "type": "object",
+      "required": ["status", "review_note", "filename", "width", "height", "format", "mode", "bytes", "sha256"],
+      "properties": {
+        "status": { "enum": ["exact", "alias_confirmed", "generated_replacement"] },
+        "review_note": { "type": "string" },
+        "filename": { "type": "string", "pattern": "\\.png$" },
+        "width": { "type": "integer", "minimum": 1 },
+        "height": { "type": "integer", "minimum": 1 },
+        "format": { "const": "PNG" },
+        "mode": { "type": "string" },
+        "bytes": { "type": "integer", "minimum": 1 },
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "project_path": { "type": "string" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

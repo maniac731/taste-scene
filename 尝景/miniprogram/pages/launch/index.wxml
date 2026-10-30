@@ -1,0 +1,5 @@
+<view class="launch-page">
+  <view class="launch-brand">尝景</view>
+  <view wx:if="{{!loadFailed}}" class="launch-note">正在展开今日的味道</view>
+  <button wx:else class="retry-button" bindtap="retry">重新进入</button>
+</view>

@@ -1,0 +1,18 @@
+{
+  "pages": ["pages/launch/index"],
+  "subPackages": [
+    {
+      "root": "packageTaste",
+      "name": "taste",
+      "pages": ["pages/index/index"]
+    }
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#F3EBDD",
+    "backgroundTextStyle": "dark"
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

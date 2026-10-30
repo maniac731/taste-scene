@@ -1,0 +1,88 @@
+<view class="page-shell tone-{{tone}}">
+  <view class="spray-layer"></view>
+  <view class="safe-top"></view>
+  <view class="page-brand">尝景</view>
+
+  <view class="tone-panel">
+    <text class="tone-title">今日色调</text>
+    <view class="tone-options">
+      <view wx:for="{{tones}}" wx:key="id" class="tone-slot">
+        <button class="tone-dot tone-dot--{{item.id}} {{tone === item.id ? 'is-selected' : ''}}" data-tone="{{item.id}}" bindtap="selectTone" aria-label="{{item.name}}"></button>
+      </view>
+      <view class="tone-slot">
+        <button class="tone-dot tone-add" aria-label="自定义色调"><view></view><view></view></button>
+      </view>
+    </view>
+  </view>
+
+  <view class="paper-card">
+    <view class="paper-depth"></view>
+    <view class="record-row">
+      <text>YOUR VIEW</text>
+      <text>{{dateLabel}}</text>
+    </view>
+
+    <button class="view-window view-window--{{photoOrientation}} view-window--{{stage}}" style="{{photoFrameStyle}}" data-source="album" bindtap="choosePhoto" hover-class="view-window--pressed">
+      <image wx:if="{{photoPath}}" class="view-photo" src="{{photoPath}}" mode="aspectFill"></image>
+      <view wx:else class="empty-glow">
+        <view class="glow-orb glow-orb--one"></view>
+        <view class="glow-orb glow-orb--two"></view>
+      </view>
+      <view class="glass-reflection"></view>
+      <view class="glass-edge"></view>
+      <view class="finder-corner finder-corner--tl"></view>
+      <view class="finder-corner finder-corner--tr"></view>
+      <view class="finder-corner finder-corner--bl"></view>
+      <view class="finder-corner finder-corner--br"></view>
+
+      <view wx:if="{{stage === 'upload'}}" class="window-prompt">
+        <view class="prompt-plus"><view></view><view></view></view>
+        <text class="prompt-main">放入一张照片</text>
+        <text class="prompt-sub">相册或相机</text>
+      </view>
+      <view wx:elif="{{stage === 'analysis'}}" class="window-prompt window-prompt--light">
+        <text class="analysis-label">{{analysisLabel}}</text>
+        <view class="progress-track"><view class="progress-fill" style="width: {{progress}}%;"></view></view>
+      </view>
+    </button>
+
+    <view class="flavor-heading">
+      <view class="heading-rule"></view>
+      <text>TODAY'S FLAVOR RECORD</text>
+      <view class="heading-rule"></view>
+    </view>
+
+    <view wx:if="{{stage !== 'result'}}" class="empty-record">
+      <text class="empty-main">保存这一刻</text>
+      <text class="empty-sub">留下一份味觉记录</text>
+    </view>
+
+    <view wx:else class="result-record">
+      <view class="food-opening food-opening--{{foodOrientation}} food-opening--{{tearStyle}}">
+        <image wx:if="{{!foodImageFailed && (maskedFoodPath || croppedFoodPath || foodDisplayPath)}}" class="food-image" src="{{tearStyle === 'natural' && maskedFoodPath ? maskedFoodPath : (croppedFoodPath || foodDisplayPath)}}" mode="scaleToFill" webp="{{true}}" binderror="handleFoodImageError"></image>
+        <view wx:else class="food-image-fallback">这份味道正在路上</view>
+        <image wx:if="{{tearStyle === 'natural' && tornEdgePath}}" class="torn-light" src="{{tornEdgePath}}" mode="scaleToFill"></image>
+      </view>
+      <text class="food-name">{{resultFood.name}}</text>
+      <text class="food-notes">{{resultFood.temperature}} · {{resultFood.texture}} · {{resultFood.taste}}</text>
+      <text wx:if="{{resultFood.asset_source === 'contact_sheet_crop'}}" class="temp-note">PROTOTYPE IMAGE</text>
+      <view class="tear-selector">
+        <text class="tear-title">揭开形态</text>
+        <button class="tear-choice {{tearStyle === 'smooth' ? 'is-selected' : ''}}" data-style="smooth" bindtap="selectTearStyle"><view class="choice-dot"></view><text class="tear-choice-label">柔圆</text></button>
+        <button class="tear-choice {{tearStyle === 'natural' ? 'is-selected' : ''}}" data-style="natural" bindtap="selectTearStyle"><view class="choice-dot"></view><text class="tear-choice-label">自然</text></button>
+      </view>
+    </view>
+
+    <view wx:if="{{stage !== 'result'}}" class="card-actions">
+      <button class="card-action card-action--quiet" data-source="album" bindtap="choosePhoto">从相册选择</button>
+      <button class="card-action card-action--primary card-action--camera" data-source="camera" bindtap="choosePhoto">拍一张</button>
+    </view>
+    <view wx:else class="card-actions">
+      <button class="card-action card-action--quiet" bindtap="choosePhoto">重新上传</button>
+      <button class="card-action card-action--primary" open-type="share">分享这份味道</button>
+    </view>
+  </view>
+  <text class="privacy">照片将发送至 AI 服务进行即时分析，不在小程序内保存</text>
+  <canvas canvas-id="analysisCanvas" class="analysis-canvas" style="width: 48px; height: 48px;"></canvas>
+  <canvas type="2d" id="maskCanvas" class="mask-canvas" style="width: 560px; height: 500px;"></canvas>
+</view>

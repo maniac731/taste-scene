@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta name="theme-color" content="#ffffff" />
+    <meta name="description" content="上传一张生活照片，把光线、颜色与氛围转译成一道味道。" />
+    <title>一口｜从一张照片，寻找一道味道</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="masthead">
+        <a class="brand" href="#" aria-label="一口首页">一口</a>
+        <p>从一张照片，寻找一道味道。</p>
+        <span class="folio">01</span>
+      </header>
+
+      <section id="upload-view" class="view upload-view" aria-labelledby="upload-title">
+        <div class="intro-grid">
+          <div class="intro-copy">
+            <p class="eyebrow">视觉 × 味觉</p>
+            <h1 id="upload-title">这一刻，<br />尝起来像什么？</h1>
+          </div>
+          <p class="intro-note">上传一张生活照片。我们会读取它的色彩、光线和氛围，为它找到一道食物或饮品。</p>
+        </div>
+
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-mark" aria-hidden="true">
+            <span></span><span></span>
+          </div>
+          <p>把照片放在这里</p>
+          <span>支持 JPG、PNG、HEIC</span>
+          <div class="upload-actions">
+            <label class="primary-button" for="album-input">选择照片</label>
+            <label class="text-button" for="camera-input">拍一张</label>
+          </div>
+          <input id="album-input" class="visually-hidden" type="file" accept="image/*,.heic,.heif" />
+          <input id="camera-input" class="visually-hidden" type="file" accept="image/*" capture="environment" />
+        </div>
+        <p class="privacy-note">照片只在当前设备中分析，不会上传。</p>
+      </section>
+
+      <section id="analysis-view" class="view analysis-view" hidden aria-live="polite">
+        <figure class="photo-stage">
+          <img id="analysis-photo" alt="你选择的照片" />
+          <figcaption id="analysis-status">正在观察这张照片…</figcaption>
+          <div class="scan-line" aria-hidden="true"></div>
+        </figure>
+        <div class="analysis-progress" aria-hidden="true"><span id="progress-bar"></span></div>
+        <p id="analysis-detail">读取光线</p>
+      </section>
+
+      <section id="result-view" class="view result-view" hidden aria-labelledby="result-name">
+        <div class="result-heading">
+          <div>
+            <p class="eyebrow">这张照片的味道</p>
+            <h1 id="result-name"></h1>
+          </div>
+          <span class="result-index">01 / 01</span>
+        </div>
+
+        <article class="taste-card">
+          <figure class="result-visual">
+            <img id="result-illustration" alt="" />
+            <img id="source-thumb" class="source-thumb" alt="原照片缩略图" />
+          </figure>
+
+          <div class="result-story">
+            <p id="visual-reading" class="visual-reading"></p>
+            <p id="taste-line" class="taste-line"></p>
+          </div>
+
+          <dl class="taste-specs">
+            <div><dt>味道</dt><dd id="taste-value"></dd></div>
+            <div><dt>温度</dt><dd id="temperature-value"></dd></div>
+            <div><dt>口感</dt><dd id="texture-value"></dd></div>
+          </dl>
+        </article>
+
+        <div class="result-actions">
+          <button id="share-button" class="primary-button" type="button">分享这一口</button>
+          <button id="retry-button" class="text-button" type="button">换一张照片</button>
+        </div>
+        <p id="share-feedback" class="share-feedback" role="status"></p>
+      </section>
+    </main>
+
+    <canvas id="analysis-canvas" hidden></canvas>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

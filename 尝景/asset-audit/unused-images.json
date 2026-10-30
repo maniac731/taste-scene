@@ -1,0 +1,24 @@
+[
+  {
+    "filename": "手撕猪肉班尼迪克蛋开放吐司水彩插画 (1).png",
+    "width": 2304,
+    "height": 1728,
+    "format": "PNG",
+    "mode": "RGB",
+    "bytes": 4672570,
+    "sha256": "c0a5790c91b6e72a7dc29727bd28568eba0cde31b81c7c5ba0746f6eab5dabca",
+    "status": "rejected_wrong_content",
+    "review_note": "画面是卷状菜品，不是班尼迪克蛋开放吐司"
+  },
+  {
+    "filename": "手撕猪肉班尼迪克蛋开放吐司水彩插画.png",
+    "width": 2304,
+    "height": 1728,
+    "format": "PNG",
+    "mode": "RGB",
+    "bytes": 3691717,
+    "sha256": "1e48e410186f8388457b5da20432b1cf38b4ed96427634a70659e5303445489e",
+    "status": "rejected_wrong_content",
+    "review_note": "画面是块状夹层食物，不是班尼迪克蛋开放吐司"
+  }
+]
